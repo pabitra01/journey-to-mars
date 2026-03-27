@@ -1,0 +1,1109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Journey to Mars - Frontend Odyssey</title>
+  <meta name="description" content="An immersive interactive storytelling experience taking you on a cinematic journey from Earth to Mars. Built for Frontend Odyssey.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Inter:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- ===== CUSTOM CURSOR ===== -->
+  <div class="cursor-dot" id="cursorDot"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ===== LOADING SCREEN ===== -->
+  <div id="loader" class="loader">
+    <div class="loader-content">
+      <div class="loader-planet">
+        <div class="loader-planet-sphere"></div>
+        <div class="loader-planet-ring"></div>
+      </div>
+      <h2 class="loader-text">
+        <span class="loader-char">J</span><span class="loader-char">O</span><span class="loader-char">U</span><span class="loader-char">R</span><span class="loader-char">N</span><span class="loader-char">E</span><span class="loader-char">Y</span>
+        <span class="loader-char space">&nbsp;</span>
+        <span class="loader-char">T</span><span class="loader-char">O</span>
+        <span class="loader-char space">&nbsp;</span>
+        <span class="loader-char accent">M</span><span class="loader-char accent">A</span><span class="loader-char accent">R</span><span class="loader-char accent">S</span>
+      </h2>
+      <div class="loader-bar-track">
+        <div class="loader-bar-fill" id="loaderBar"></div>
+      </div>
+      <p class="loader-status" id="loaderStatus">Initializing systems...</p>
+    </div>
+    <div class="loader-grid"></div>
+  </div>
+
+  <!-- ===== SCROLL PROGRESS ===== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="nav" id="mainNav">
+    <div class="nav-brand">
+      <div class="nav-logo-wrap">
+        <span class="nav-logo">◈</span>
+      </div>
+      <span class="nav-title">MARS MISSION</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#hero" class="nav-link active" data-section="hero"><span>Home</span></a>
+      <a href="#crew" class="nav-link" data-section="crew"><span>Crew</span></a>
+      <a href="#training" class="nav-link" data-section="training"><span>Training</span></a>
+      <a href="#launch" class="nav-link" data-section="launch"><span>Launch</span></a>
+      <a href="#orbit" class="nav-link" data-section="orbit"><span>Orbit</span></a>
+      <a href="#space" class="nav-link" data-section="space"><span>Space</span></a>
+      <a href="#transit" class="nav-link" data-section="transit"><span>Transit</span></a>
+      <a href="#landing" class="nav-link" data-section="landing"><span>Landing</span></a>
+      <a href="#firststeps" class="nav-link" data-section="firststeps"><span>First Steps</span></a>
+      <a href="#explore" class="nav-link" data-section="explore"><span>Explore</span></a>
+      <a href="#conclusion" class="nav-link" data-section="conclusion"><span>Mission</span></a>
+    </div>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===== CANVAS BACKGROUNDS ===== -->
+  <canvas id="starfield"></canvas>
+  <canvas id="particleField"></canvas>
+
+  <!-- ===== SECTION TRANSITION OVERLAYS ===== -->
+  <div class="section-transition" id="sectionTransition">
+    <div class="transition-wipe"></div>
+  </div>
+
+  <!-- ==================================== -->
+  <!-- SECTION 1: HERO                      -->
+  <!-- ==================================== -->
+  <section id="hero" class="section section-hero">
+    <div class="hero-overlay"></div>
+
+
+    <div class="hero-content">
+      <p class="hero-tag" data-split>FRONTEND ODYSSEY - 2026</p>
+      <h1 class="hero-title">
+        <span class="hero-title-line" data-split>Journey</span>
+        <span class="hero-title-line accent" data-split>to Mars</span>
+      </h1>
+      <p class="hero-subtitle" data-split>An immersive interactive experience taking you from Earth's launchpad to the red planet's surface.</p>
+      <div class="hero-stats">
+        <div class="hero-stat glass-morph">
+          <span class="hero-stat-value">225M</span>
+          <span class="hero-stat-label">km distance</span>
+        </div>
+        <div class="hero-stat glass-morph">
+          <span class="hero-stat-value">7</span>
+          <span class="hero-stat-label">months travel</span>
+        </div>
+        <div class="hero-stat glass-morph">
+          <span class="hero-stat-value">2026</span>
+          <span class="hero-stat-label">mission year</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>Scroll to explore</span>
+    </div>
+
+    <!-- Floating particles in hero -->
+    <div class="hero-particles">
+      <div class="h-particle" style="--x:10%;--y:20%;--d:6s;--s:3px"></div>
+      <div class="h-particle" style="--x:85%;--y:30%;--d:8s;--s:2px"></div>
+      <div class="h-particle" style="--x:25%;--y:70%;--d:7s;--s:4px"></div>
+      <div class="h-particle" style="--x:60%;--y:15%;--d:9s;--s:2px"></div>
+      <div class="h-particle" style="--x:75%;--y:65%;--d:5s;--s:3px"></div>
+      <div class="h-particle" style="--x:40%;--y:80%;--d:10s;--s:2px"></div>
+      <div class="h-particle" style="--x:90%;--y:55%;--d:6s;--s:5px"></div>
+      <div class="h-particle" style="--x:15%;--y:45%;--d:7s;--s:2px"></div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: THE CREW                    -->
+  <!-- ==================================== -->
+  <section id="crew" class="section section-crew">
+    <div class="crew-nebula-bg"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2 class="section-title" data-split>The Crew</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">Six extraordinary individuals chosen from thousands. Each one the best in their field - bound by a single dream.</p>
+      </div>
+
+      <div class="crew-intro reveal-el">
+        <p class="crew-intro-text">In the spring of 2024, space agencies worldwide announced an unprecedented collaboration: <strong>Project Ares</strong> - humanity's first crewed mission to Mars. Over 18,000 applicants from 42 nations were narrowed down to just six. These are the pioneers who will carry the hopes of an entire planet across 225 million kilometers of void.</p>
+      </div>
+
+      <div class="crew-grid">
+        <div class="crew-card glass-morph reveal-el" data-tilt>
+          <div class="crew-card-glow"></div>
+          <div class="crew-avatar">👩‍🚀</div>
+          <div class="crew-rank">COMMANDER</div>
+          <h3>Dr. Elena Vasquez</h3>
+          <p class="crew-origin">🇪🇸 Madrid, Spain</p>
+          <p class="crew-bio">Former ESA flight director with 3 ISS missions. A veteran of 847 days in space, Elena's calm under pressure during the Orion-7 incident made her a legend. She leads by example, not by command.</p>
+          <div class="crew-stats-mini">
+            <span>🕐 847 days in space</span>
+            <span>🎓 PhD Astrophysics</span>
+          </div>
+        </div>
+        <div class="crew-card glass-morph reveal-el" data-tilt>
+          <div class="crew-card-glow"></div>
+          <div class="crew-avatar">👨‍🚀</div>
+          <div class="crew-rank">PILOT</div>
+          <h3>Captain James "Hawk" Okonkwo</h3>
+          <p class="crew-origin">🇳🇬 Lagos, Nigeria</p>
+          <p class="crew-bio">A test pilot with nerves of titanium. Hawk logged 4,000+ flight hours across 22 aircraft types before joining NASA. His lightning reflexes and photographic memory make him the perfect person to put a ship on Mars.</p>
+          <div class="crew-stats-mini">
+            <span>✈️ 4,000+ flight hours</span>
+            <span>🎖️ Air Force veteran</span>
+          </div>
+        </div>
+        <div class="crew-card glass-morph reveal-el" data-tilt>
+          <div class="crew-card-glow"></div>
+          <div class="crew-avatar">👩‍🔬</div>
+          <div class="crew-rank">MISSION SCIENTIST</div>
+          <h3>Dr. Yuki Tanaka</h3>
+          <p class="crew-origin">🇯🇵 Kyoto, Japan</p>
+          <p class="crew-bio">A geobiologist who discovered extremophile bacteria in Antarctica's subglacial lakes. Yuki's work on life-detection instruments may answer humanity's greatest question: Are we alone? Her quiet intensity masks an unbreakable resolve.</p>
+          <div class="crew-stats-mini">
+            <span>🔬 12 published papers</span>
+            <span>🧊 3 Antarctic expeditions</span>
+          </div>
+        </div>
+        <div class="crew-card glass-morph reveal-el" data-tilt>
+          <div class="crew-card-glow"></div>
+          <div class="crew-avatar">👨‍⚕️</div>
+          <div class="crew-rank">FLIGHT SURGEON</div>
+          <h3>Dr. Arjun Mehta</h3>
+          <p class="crew-origin">🇮🇳 Mumbai, India</p>
+          <p class="crew-bio">A trauma surgeon who pivoted to aerospace medicine after volunteering for disaster relief in 12 countries. Arjun designed the ship's medical bay himself. His motto: "On Mars, the nearest hospital is 225 million km away - so we bring the hospital."</p>
+          <div class="crew-stats-mini">
+            <span>🏥 200+ surgeries</span>
+            <span>🌍 12 relief missions</span>
+          </div>
+        </div>
+        <div class="crew-card glass-morph reveal-el" data-tilt>
+          <div class="crew-card-glow"></div>
+          <div class="crew-avatar">👩‍💻</div>
+          <div class="crew-rank">SYSTEMS ENGINEER</div>
+          <h3>Lieutenant Sarah Chen</h3>
+          <p class="crew-origin">🇨🇦 Vancouver, Canada</p>
+          <p class="crew-bio">A robotics prodigy who built her first satellite at 19. Sarah designed the ship's autonomous repair systems and AI copilot. If anything breaks on the 7-month journey, she's the one who fixes it - often before anyone notices.</p>
+          <div class="crew-stats-mini">
+            <span>🤖 Built 3 satellites</span>
+            <span>💻 AI systems expert</span>
+          </div>
+        </div>
+        <div class="crew-card glass-morph reveal-el" data-tilt>
+          <div class="crew-card-glow"></div>
+          <div class="crew-avatar">👨‍🔧</div>
+          <div class="crew-rank">EVA SPECIALIST</div>
+          <h3>Kofi Asante</h3>
+          <p class="crew-origin">🇬🇭 Accra, Ghana</p>
+          <p class="crew-bio">A deep-sea diver turned spacewalker. Kofi holds the record for the longest continuous EVA at 11 hours. His ability to stay calm in the most hostile environments - from ocean trenches to the vacuum of space - is unmatched.</p>
+          <div class="crew-stats-mini">
+            <span>🌊 300+ dives</span>
+            <span>🚶 11-hour EVA record</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="crew-quote reveal-el">
+        <blockquote>"We don't fly to Mars for ourselves. We fly for every child who ever looked up at the sky and wondered - what's out there?"</blockquote>
+        <cite>- Dr. Elena Vasquez, Mission Commander</cite>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: TRAINING & PREPARATION      -->
+  <!-- ==================================== -->
+  <section id="training" class="section section-training">
+    <div class="training-grid-bg"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2 class="section-title" data-split>Training</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">Two years of brutal preparation. The body must be forged. The mind must be tempered. Failure is rehearsed until success becomes instinct.</p>
+      </div>
+
+      <div class="training-story reveal-el">
+        <p>The training program begins long before dawn in the deserts of Nevada. For 24 months, the crew endured conditions designed to break them - isolation chambers simulating 200 days without sunlight, underwater EVA rehearsals in NASA's Neutral Buoyancy Lab, and centrifuge runs pushing them to 8G. Every scenario was designed around one question: <em>"What's the worst that could happen?"</em></p>
+      </div>
+
+      <div class="training-phases">
+        <div class="training-phase glass-morph reveal-el">
+          <div class="phase-icon">🏋️</div>
+          <div class="phase-content">
+            <span class="phase-label">PHASE 1 - MONTHS 1-6</span>
+            <h4>Physical Conditioning</h4>
+            <p>Daily 4-hour physical training regimen. The crew must withstand launch forces of 3.5G and maintain peak fitness during 7 months of microgravity. Each astronaut built endurance running desert marathons and maintained bone density through resistance training designed for zero-G.</p>
+            <div class="phase-meter">
+              <span>Physical Readiness</span>
+              <div class="meter-bar"><div class="meter-fill" style="--fill: 95%"></div></div>
+              <span class="meter-val">95%</span>
+            </div>
+          </div>
+        </div>
+        <div class="training-phase glass-morph reveal-el">
+          <div class="phase-icon">🧠</div>
+          <div class="phase-content">
+            <span class="phase-label">PHASE 2 - MONTHS 7-12</span>
+            <h4>Psychological Endurance</h4>
+            <p>Six months in a sealed habitat in Antarctica with no outside contact. The crew learned to manage conflict, loneliness, and the creeping dread of confinement. Two crews before them cracked under the pressure. This crew held together - and came out stronger.</p>
+            <div class="phase-meter">
+              <span>Team Cohesion</span>
+              <div class="meter-bar"><div class="meter-fill" style="--fill: 88%"></div></div>
+              <span class="meter-val">88%</span>
+            </div>
+          </div>
+        </div>
+        <div class="training-phase glass-morph reveal-el">
+          <div class="phase-icon">🔧</div>
+          <div class="phase-content">
+            <span class="phase-label">PHASE 3 - MONTHS 13-18</span>
+            <h4>Technical Mastery</h4>
+            <p>Every system on the ship memorized. Every failure mode rehearsed. Sarah Chen can rebuild the CO₂ scrubber blindfolded in 47 minutes. Hawk can land the MAV in a dust storm with one engine out. They practiced until the impossible felt routine.</p>
+            <div class="phase-meter">
+              <span>Systems Proficiency</span>
+              <div class="meter-bar"><div class="meter-fill" style="--fill: 97%"></div></div>
+              <span class="meter-val">97%</span>
+            </div>
+          </div>
+        </div>
+        <div class="training-phase glass-morph reveal-el">
+          <div class="phase-icon">🚨</div>
+          <div class="phase-content">
+            <span class="phase-label">PHASE 4 - MONTHS 19-24</span>
+            <h4>Mission Simulations</h4>
+            <p>Full end-to-end mission rehearsals. From launch to landing to surface operations, every minute was scripted - then deliberately sabotaged. Simulated solar flare? Handled. Life support failure at 3 AM? Fixed in 6 minutes. They trained for chaos until calm became their default.</p>
+            <div class="phase-meter">
+              <span>Mission Readiness</span>
+              <div class="meter-bar"><div class="meter-fill" style="--fill: 100%"></div></div>
+              <span class="meter-val">100%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="training-final reveal-el">
+        <div class="training-final-inner glass-morph">
+          <div class="training-stamp">✅ CLEARED FOR FLIGHT</div>
+          <p class="training-final-text">On January 15, 2026, all six crew members received their final flight clearance. Medical, psychological, and technical evaluations: all nominal. The next time they'd suit up, it would be for real.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION 2: LAUNCH                    -->
+  <!-- ==================================== -->
+  <section id="launch" class="section section-launch">
+    <div class="section-bg-gradient launch-gradient"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">03</span>
+        <h2 class="section-title" data-split>The Launch</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">From Cape Canaveral, humanity's next great leap begins with fire and thunder.</p>
+      </div>
+
+      <div class="launch-scene">
+        <div class="rocket-3d-container" id="rocketContainer">
+          <div class="rocket-3d">
+            <div class="rocket-body-3d">
+              <div class="rocket-nose-3d"></div>
+              <div class="rocket-fuselage-3d">
+                <div class="rocket-window-3d"></div>
+                <div class="rocket-window-3d w2"></div>
+                <div class="rocket-stripe-3d"></div>
+                <div class="rocket-panel-line l1"></div>
+                <div class="rocket-panel-line l2"></div>
+              </div>
+              <div class="rocket-fin-3d fin-left"></div>
+              <div class="rocket-fin-3d fin-right"></div>
+              <div class="rocket-fin-3d fin-center"></div>
+            </div>
+            <div class="rocket-exhaust-3d" id="rocketExhaust">
+              <div class="exhaust-core"></div>
+              <div class="exhaust-mid"></div>
+              <div class="exhaust-outer"></div>
+              <div class="exhaust-particles">
+                <span></span><span></span><span></span><span></span>
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+          <div class="launch-pad">
+            <div class="pad-structure"></div>
+            <div class="pad-smoke" id="padSmoke"></div>
+          </div>
+        </div>
+
+        <div class="countdown-display" id="countdown">
+          <span class="countdown-label">T-MINUS</span>
+          <span class="countdown-number" id="countdownNumber">10</span>
+          <span class="countdown-sub">SECONDS TO LAUNCH</span>
+        </div>
+      </div>
+
+      <div class="launch-cards">
+        <div class="info-card-3d" data-tilt>
+          <div class="card-3d-inner glass-morph">
+            <div class="card-glow"></div>
+            <div class="card-icon">🚀</div>
+            <h3>Falcon Heavy X</h3>
+            <p>Next-generation heavy-lift launch vehicle carrying our crew to Mars orbit.</p>
+            <div class="card-stat">
+              <span class="stat-val" data-count="27">0</span>
+              <span class="stat-unit">engines</span>
+            </div>
+          </div>
+        </div>
+        <div class="info-card-3d" data-tilt>
+          <div class="card-3d-inner glass-morph">
+            <div class="card-glow"></div>
+            <div class="card-icon">⚡</div>
+            <h3>Launch Velocity</h3>
+            <p>Achieving escape velocity to break free from Earth's gravitational pull.</p>
+            <div class="card-stat">
+              <span class="stat-val">11.2</span>
+              <span class="stat-unit">km/s</span>
+            </div>
+          </div>
+        </div>
+        <div class="info-card-3d" data-tilt>
+          <div class="card-3d-inner glass-morph">
+            <div class="card-glow"></div>
+            <div class="card-icon">🛡️</div>
+            <h3>Crew Safety</h3>
+            <p>Redundant safety systems and autonomous abort capabilities protect the crew.</p>
+            <div class="card-stat">
+              <span class="stat-val">99.7</span>
+              <span class="stat-unit">% safe</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: EARTH ORBIT                 -->
+  <!-- ==================================== -->
+  <section id="orbit" class="section section-orbit">
+    <div class="orbit-earth-glow"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">04</span>
+        <h2 class="section-title" data-split>Earth Orbit</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">408 kilometers above home. The crew circles Earth one final time before the engines ignite for the longest journey in human history.</p>
+      </div>
+
+      <div class="orbit-narrative">
+        <div class="orbit-panel glass-morph reveal-el">
+          <div class="orbit-panel-icon">🌍</div>
+          <div class="orbit-panel-content">
+            <span class="orbit-time">T+00:08:42 - LOW EARTH ORBIT</span>
+            <h4>Orbital Insertion</h4>
+            <p>The main engines cut off. Silence replaces the roar. Through the porthole, the crew sees something no photograph can prepare you for: Earth - a marble of swirling blue and white - hanging in an infinite black ocean. Commander Vasquez keys the radio: <em>"Ares-1 to Houston. We are in orbit. She's beautiful from up here."</em></p>
+          </div>
+        </div>
+        <div class="orbit-panel glass-morph reveal-el">
+          <div class="orbit-panel-icon">🛰️</div>
+          <div class="orbit-panel-content">
+            <span class="orbit-time">T+02:15:00 - SYSTEMS CHECK</span>
+            <h4>Pre-Departure Diagnostics</h4>
+            <p>For two hours, Sarah Chen runs through 847 system checks while the ship completes its second orbit. Navigation: nominal. Life support: nominal. Fuel reserves: 102.3% (they loaded extra, just in case). Arjun records baseline vitals for all crew - heart rates are elevated, but within parameters. They're excited, not scared.</p>
+          </div>
+        </div>
+        <div class="orbit-panel glass-morph reveal-el">
+          <div class="orbit-panel-icon">📞</div>
+          <div class="orbit-panel-content">
+            <span class="orbit-time">T+03:30:00 - FINAL CALL HOME</span>
+            <h4>Last Words to Earth</h4>
+            <p>Mission protocol grants each crew member 10 minutes of private communication with their families. What's said in those calls stays private. But when Hawk floats back to the cockpit, his eyes are red. Yuki holds a small origami crane her daughter folded - she tucks it into her flight suit pocket. Some distances aren't measured in kilometers.</p>
+          </div>
+        </div>
+        <div class="orbit-panel glass-morph reveal-el">
+          <div class="orbit-panel-icon">🔥</div>
+          <div class="orbit-panel-content">
+            <span class="orbit-time">T+04:00:00 - TRANS-MARS INJECTION</span>
+            <h4>The Point of No Return</h4>
+            <p>The engines fire for exactly 6 minutes and 12 seconds. It's the gentlest push - barely perceptible - but it changes everything. Their velocity climbs past 11.2 km/s: escape velocity. Earth begins to shrink in the rear cameras. There's no turning back now. The next solid ground they touch will be red.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="orbit-stats-bar reveal-el">
+        <div class="orbit-stat-item glass-morph">
+          <span class="orbit-stat-num">408</span>
+          <span class="orbit-stat-unit">km altitude</span>
+        </div>
+        <div class="orbit-stat-item glass-morph">
+          <span class="orbit-stat-num">28,000</span>
+          <span class="orbit-stat-unit">km/h velocity</span>
+        </div>
+        <div class="orbit-stat-item glass-morph">
+          <span class="orbit-stat-num">3</span>
+          <span class="orbit-stat-unit">orbits completed</span>
+        </div>
+        <div class="orbit-stat-item glass-morph">
+          <span class="orbit-stat-num">6:12</span>
+          <span class="orbit-stat-unit">min burn time</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: DEEP SPACE                  -->
+  <!-- ==================================== -->
+  <section id="space" class="section section-space">
+    <div class="parallax-layer parallax-stars-back"></div>
+    <div class="parallax-layer parallax-stars-mid"></div>
+    <div class="parallax-layer parallax-stars-front"></div>
+    <div class="parallax-nebula"></div>
+
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">05</span>
+        <h2 class="section-title" data-split>Deep Space</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">225 million kilometers of silence, starlight, and the vast unknown.</p>
+      </div>
+
+      <div class="space-journey">
+        <div class="journey-path">
+          <div class="journey-line">
+            <div class="journey-line-fill" id="journeyLineFill"></div>
+          </div>
+          <div class="journey-dot earth-dot">
+            <div class="dot-3d earth-3d">🌍</div>
+            <span class="dot-label">Earth</span>
+          </div>
+          <div class="journey-dot mid-dot">
+            <div class="dot-3d">✦</div>
+            <span class="dot-label">Midpoint</span>
+          </div>
+          <div class="journey-dot mars-dot">
+            <div class="dot-3d mars-3d">🔴</div>
+            <span class="dot-label">Mars</span>
+          </div>
+          <div class="journey-ship" id="journeyShip">
+            <svg viewBox="0 0 30 30" width="24" height="24">
+              <polygon points="15,2 25,28 15,22 5,28" fill="var(--accent-cyan)" opacity="0.9"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-facts">
+        <div class="fact-card glass-morph reveal-el">
+          <div class="fact-icon-3d">
+            <div class="icon-orbit"><span>🛸</span></div>
+          </div>
+          <div class="fact-number">225M</div>
+          <div class="fact-text">
+            <h4>Kilometers</h4>
+            <p>Average distance between Earth and Mars at their closest orbital alignment.</p>
+          </div>
+        </div>
+        <div class="fact-card glass-morph reveal-el">
+          <div class="fact-icon-3d">
+            <div class="icon-orbit"><span>⏱️</span></div>
+          </div>
+          <div class="fact-number">7</div>
+          <div class="fact-text">
+            <h4>Months</h4>
+            <p>Approximate travel time using current propulsion technology and gravity assists.</p>
+          </div>
+        </div>
+        <div class="fact-card glass-morph reveal-el">
+          <div class="fact-icon-3d">
+            <div class="icon-orbit"><span>💨</span></div>
+          </div>
+          <div class="fact-number">24.6k</div>
+          <div class="fact-text">
+            <h4>km/h Speed</h4>
+            <p>Cruising velocity during the interplanetary transfer orbit phase.</p>
+          </div>
+        </div>
+        <div class="fact-card glass-morph reveal-el">
+          <div class="fact-icon-3d">
+            <div class="icon-orbit"><span>❄️</span></div>
+          </div>
+          <div class="fact-number">-270°</div>
+          <div class="fact-text">
+            <h4>Celsius</h4>
+            <p>Temperature of deep space - the ship's thermal systems work constantly.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="astronaut-3d" id="astronaut">
+        <div class="astro-container">
+          <svg viewBox="0 0 120 160" width="120" height="160">
+            <defs>
+              <radialGradient id="visorGrad" cx="50%" cy="40%">
+                <stop offset="0%" stop-color="#6dd5fa"/>
+                <stop offset="100%" stop-color="#1a1a2e"/>
+              </radialGradient>
+              <filter id="astroGlow">
+                <feGaussianBlur stdDeviation="3" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <ellipse cx="60" cy="45" rx="28" ry="32" fill="#e8e8e8" stroke="#ccc" stroke-width="2" filter="url(#astroGlow)"/>
+            <ellipse cx="60" cy="42" rx="20" ry="22" fill="url(#visorGrad)" opacity="0.9"/>
+            <rect x="40" y="70" width="40" height="55" rx="10" fill="#e8e8e8" stroke="#ccc" stroke-width="2"/>
+            <rect x="44" y="78" width="32" height="20" rx="4" fill="#3498db" opacity="0.4"/>
+            <circle cx="52" cy="85" r="2" fill="#2ecc71" opacity="0.8"/>
+            <circle cx="60" cy="85" r="2" fill="#e74c3c" opacity="0.8"/>
+            <circle cx="68" cy="85" r="2" fill="#f1c40f" opacity="0.8"/>
+            <rect x="28" y="75" width="14" height="40" rx="7" fill="#e8e8e8" stroke="#ccc" stroke-width="2" transform="rotate(-15, 35, 95)"/>
+            <rect x="78" y="75" width="14" height="40" rx="7" fill="#e8e8e8" stroke="#ccc" stroke-width="2" transform="rotate(15, 85, 95)"/>
+            <rect x="42" y="122" width="14" height="35" rx="7" fill="#e8e8e8" stroke="#ccc" stroke-width="2" transform="rotate(5, 49, 140)"/>
+            <rect x="64" y="122" width="14" height="35" rx="7" fill="#e8e8e8" stroke="#ccc" stroke-width="2" transform="rotate(-5, 71, 140)"/>
+            <ellipse cx="60" cy="30" rx="4" ry="3" fill="rgba(255,255,255,0.4)"/>
+          </svg>
+          <div class="astro-tether"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: LIFE IN TRANSIT             -->
+  <!-- ==================================== -->
+  <section id="transit" class="section section-transit">
+    <div class="transit-void-bg"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">06</span>
+        <h2 class="section-title" data-split>Life In Transit</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">210 days sealed in a metal cylinder hurtling through the void. This is what survival looks like between worlds.</p>
+      </div>
+
+      <div class="transit-diary">
+        <div class="diary-entry glass-morph reveal-el">
+          <div class="diary-header">
+            <span class="diary-sol">Sol 14</span>
+            <span class="diary-date">Day 14 of 210</span>
+          </div>
+          <div class="diary-body">
+            <h4>🌅 Finding a Routine</h4>
+            <p>The crew settles into a rhythm. Wake at 06:00 (ship time, pegged to Houston). Two hours of exercise - mandatory. The centrifuge provides artificial gravity for bone density. Yuki has already started analyzing cosmic dust samples collected by external sensors. Hawk flies VR simulations of the Mars landing every afternoon. Elena reads aloud from "The Martian" after dinner - Kofi says it's "too realistic."</p>
+          </div>
+        </div>
+        <div class="diary-entry glass-morph reveal-el">
+          <div class="diary-header">
+            <span class="diary-sol">Sol 47</span>
+            <span class="diary-date">Day 47 of 210</span>
+          </div>
+          <div class="diary-body">
+            <h4>⚠️ The Solar Flare</h4>
+            <p>At 02:17 ship time, alarms shriek through the habitat. A Class X solar flare - the most powerful in a decade - is hurling a wall of radiation toward them. The crew has 23 minutes. They scramble into the storm shelter: a coffin-sized compartment lined with water tanks and polyethylene shielding. For 8 hours, they sit in near-darkness while charged particles hammer the hull. Sarah monitors radiation levels on her tablet. Peak exposure: 0.4 Sv - within safety limits, but barely. Nobody sleeps that night.</p>
+          </div>
+        </div>
+        <div class="diary-entry glass-morph reveal-el">
+          <div class="diary-header">
+            <span class="diary-sol">Sol 89</span>
+            <span class="diary-date">Day 89 of 210</span>
+          </div>
+          <div class="diary-body">
+            <h4>🔧 The Leak</h4>
+            <p>A micro-meteoroid - no larger than a grain of sand - punctures the hab module's outer wall. The pressure drop is slow, almost imperceptible. But Sarah catches it on the sensors. Kofi suits up and goes EVA while the rest seal the compartment. He finds the breach: a hole the width of a pencil lead. Patched in 22 minutes. They add 3 new backup patches to the kit. Space is patient, and it never stops testing you.</p>
+          </div>
+        </div>
+        <div class="diary-entry glass-morph reveal-el">
+          <div class="diary-header">
+            <span class="diary-sol">Sol 130</span>
+            <span class="diary-date">Day 130 of 210</span>
+          </div>
+          <div class="diary-body">
+            <h4>🎂 Birthday in the Void</h4>
+            <p>It's Arjun's 38th birthday. With no bakery for 100 million km in any direction, Yuki engineers a "cake" from rehydrated chocolate pudding, crushed protein bars, and freeze-dried strawberries. It's terrible. Arjun says it's the best cake he's ever had. They float in the observation cupola watching Earth - now just a bright blue dot - and share stories about home. For a moment, the void doesn't feel so empty.</p>
+          </div>
+        </div>
+        <div class="diary-entry glass-morph reveal-el">
+          <div class="diary-header">
+            <span class="diary-sol">Sol 195</span>
+            <span class="diary-date">Day 195 of 210</span>
+          </div>
+          <div class="diary-body">
+            <h4>🔴 Mars in the Window</h4>
+            <p>For the first time, Mars is visible to the naked eye as a distinct disk, not just a bright point. Rusty orange with white polar caps. Elena calls the crew to the observation deck. Nobody speaks for a full five minutes. After 195 days of metal walls and recycled air, their destination is finally real. Hawk breaks the silence: <em>"I'm going to land us right there."</em> He points at Jezero Crater. And everyone believes him.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="transit-supply-status reveal-el">
+        <h3 class="transit-supply-title">Ship Status at T+195 Days</h3>
+        <div class="supply-grid">
+          <div class="supply-item glass-morph">
+            <span class="supply-icon">💧</span>
+            <span class="supply-label">Water Reserves</span>
+            <div class="mc-bar"><div class="mc-bar-fill" style="width:72%"></div></div>
+            <span class="supply-val">72%</span>
+          </div>
+          <div class="supply-item glass-morph">
+            <span class="supply-icon">🫁</span>
+            <span class="supply-label">O₂ Generation</span>
+            <div class="mc-bar"><div class="mc-bar-fill" style="width:94%"></div></div>
+            <span class="supply-val">94%</span>
+          </div>
+          <div class="supply-item glass-morph">
+            <span class="supply-icon">🍲</span>
+            <span class="supply-label">Food Supply</span>
+            <div class="mc-bar"><div class="mc-bar-fill" style="width:81%"></div></div>
+            <span class="supply-val">81%</span>
+          </div>
+          <div class="supply-item glass-morph">
+            <span class="supply-icon">⚡</span>
+            <span class="supply-label">Solar Power</span>
+            <div class="mc-bar"><div class="mc-bar-fill" style="width:88%"></div></div>
+            <span class="supply-val">88%</span>
+          </div>
+          <div class="supply-item glass-morph">
+            <span class="supply-icon">🛡️</span>
+            <span class="supply-label">Hull Integrity</span>
+            <div class="mc-bar"><div class="mc-bar-fill" style="width:99%"></div></div>
+            <span class="supply-val">99.1%</span>
+          </div>
+          <div class="supply-item glass-morph">
+            <span class="supply-icon">🧠</span>
+            <span class="supply-label">Crew Morale</span>
+            <div class="mc-bar"><div class="mc-bar-fill" style="width:85%"></div></div>
+            <span class="supply-val">HIGH</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: MARS LANDING                -->
+  <!-- ==================================== -->
+  <section id="landing" class="section section-landing">
+    <div class="mars-atmosphere-3d">
+      <div class="atmo-layer a1"></div>
+      <div class="atmo-layer a2"></div>
+      <div class="atmo-layer a3"></div>
+    </div>
+    <div class="heat-shield-effect" id="heatShield"></div>
+
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">07</span>
+        <h2 class="section-title" data-split>Mars Landing</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">Seven minutes of terror - the most critical phase of the entire mission.</p>
+      </div>
+
+      <div class="landing-timeline">
+        <div class="timeline-line">
+          <div class="timeline-line-fill" id="timelineLineFill"></div>
+        </div>
+
+        <div class="timeline-event reveal-el" data-step="1">
+          <div class="event-marker">
+            <div class="marker-dot">
+              <div class="marker-pulse"></div>
+            </div>
+          </div>
+          <div class="event-content glass-morph">
+            <div class="event-3d-icon">🔥</div>
+            <span class="event-time">T+210 days</span>
+            <h4>Atmospheric Entry</h4>
+            <p>Hitting the Martian atmosphere at 19,500 km/h. The heat shield glows at 1,600°C.</p>
+            <div class="event-meter">
+              <div class="meter-label">Heat Level</div>
+              <div class="meter-bar">
+                <div class="meter-fill" style="--fill: 85%"></div>
+              </div>
+              <span class="meter-val">1,600°C</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-event reveal-el" data-step="2">
+          <div class="event-marker">
+            <div class="marker-dot">
+              <div class="marker-pulse"></div>
+            </div>
+          </div>
+          <div class="event-content glass-morph">
+            <div class="event-3d-icon">🪂</div>
+            <span class="event-time">T+210d 4min</span>
+            <h4>Parachute Deploy</h4>
+            <p>Supersonic parachute deploys at Mach 1.7, experiencing 9G of deceleration force.</p>
+            <div class="event-meter">
+              <div class="meter-label">G-Force</div>
+              <div class="meter-bar">
+                <div class="meter-fill" style="--fill: 60%"></div>
+              </div>
+              <span class="meter-val">9G</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-event reveal-el" data-step="3">
+          <div class="event-marker">
+            <div class="marker-dot">
+              <div class="marker-pulse"></div>
+            </div>
+          </div>
+          <div class="event-content glass-morph">
+            <div class="event-3d-icon">🔻</div>
+            <span class="event-time">T+210d 6min</span>
+            <h4>Powered Descent</h4>
+            <p>Retro-rockets fire for precision landing. Terrain-relative navigation scans the surface.</p>
+            <div class="event-meter">
+              <div class="meter-label">Thrust</div>
+              <div class="meter-bar">
+                <div class="meter-fill" style="--fill: 72%"></div>
+              </div>
+              <span class="meter-val">Active</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-event reveal-el" data-step="4">
+          <div class="event-marker">
+            <div class="marker-dot success">
+              <div class="marker-pulse"></div>
+            </div>
+          </div>
+          <div class="event-content glass-morph success-card">
+            <div class="event-3d-icon">🎉</div>
+            <span class="event-time">T+210d 7min</span>
+            <h4>Touchdown!</h4>
+            <p>Contact confirmed on Jezero Crater. The first humans have landed on Mars.</p>
+            <div class="event-meter">
+              <div class="meter-label">Status</div>
+              <div class="meter-bar success">
+                <div class="meter-fill" style="--fill: 100%"></div>
+              </div>
+              <span class="meter-val success-text">SUCCESS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: FIRST STEPS                 -->
+  <!-- ==================================== -->
+  <section id="firststeps" class="section section-firststeps">
+    <div class="firststeps-dust"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">08</span>
+        <h2 class="section-title" data-split>First Steps</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">The hatch opens. Rust-colored dust swirls in thin atmosphere. And then - a boot print that will echo for millennia.</p>
+      </div>
+
+      <div class="firststeps-narrative">
+        <div class="fs-moment glass-morph reveal-el">
+          <div class="fs-timestamp">T+210d 02:14:00</div>
+          <div class="fs-icon-large">🚪</div>
+          <h4>The Hatch</h4>
+          <p>Three hours after touchdown, the crew completes post-landing checks. Commander Vasquez stands at the airlock. Her hand hovers over the release lever. Behind her, five crew members hold their breath. On Earth, 4.2 billion people are watching a live feed delayed by 12.5 minutes. She looks back at her crew one last time. Hawk gives a thumbs up. She pulls the lever.</p>
+        </div>
+
+        <div class="fs-moment glass-morph reveal-el">
+          <div class="fs-timestamp">T+210d 02:17:33</div>
+          <div class="fs-icon-large">👣</div>
+          <h4>Contact</h4>
+          <p>The ladder is 9 rungs. Elena descends slowly - each step deliberately placed. The Martian surface is a rust-colored desert stretching to a horizon that curves just slightly more than Earth's. The sky is a pale butterscotch. She steps off the final rung and her boot sinks exactly 2 centimeters into regolith that hasn't been disturbed in 4 billion years.</p>
+          <blockquote class="fs-quote">"The Earth is just a star from here. But every star represents a home. Today, we've given humanity a second one."</blockquote>
+          <cite>- Commander Elena Vasquez, first words on Mars</cite>
+        </div>
+
+        <div class="fs-moment glass-morph reveal-el">
+          <div class="fs-timestamp">T+210d 02:45:00</div>
+          <div class="fs-icon-large">🏴</div>
+          <h4>The Flag</h4>
+          <p>Not the flag of any single nation - but a new one, designed by schoolchildren from 42 countries. A blue and red circle interlocked on white: Earth and Mars, connected. The crew plants it together - all twelve hands on the pole. In the thin Martian wind, it barely flutters. But its meaning is thunderous.</p>
+        </div>
+
+        <div class="fs-moment glass-morph reveal-el">
+          <div class="fs-timestamp">T+210d 04:30:00</div>
+          <div class="fs-icon-large">🏠</div>
+          <h4>Setting Up Camp</h4>
+          <p>While the world celebrates, the crew gets to work. There are solar panels to deploy, a habitat to pressurize, and a drilling rig to assemble. Mars offers no grace period. The first Martian sunset paints the sky an eerie blue - the opposite of Earth. Kofi captures a photo. It becomes the most-shared image in human history within 24 hours (plus 12.5 minutes of light-speed delay).</p>
+        </div>
+      </div>
+
+      <div class="fs-milestone reveal-el">
+        <div class="fs-milestone-inner glass-morph">
+          <div class="fs-milestone-icon">🌟</div>
+          <h3>Sol 1 Complete</h3>
+          <p>The first Martian day - 24 hours and 37 minutes - comes to an end. Elena logs the final entry: <em>"All crew safe. Habitat pressurized. Spirits are high. Mars is cold, quiet, and absolutely magnificent. Sol 1 is in the books."</em></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION: EXPLORATION                 -->
+  <!-- ==================================== -->
+  <section id="explore" class="section section-explore">
+    <div class="mars-terrain-3d">
+      <div class="terrain-layer t1"></div>
+      <div class="terrain-layer t2"></div>
+      <div class="terrain-layer t3"></div>
+    </div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">09</span>
+        <h2 class="section-title" data-split>Exploration</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">The surface of Mars awaits. Click the markers to discover key locations.</p>
+      </div>
+
+      <div class="mars-map">
+        <div class="map-surface-3d">
+          <div class="map-grid-3d"></div>
+          <div class="map-scan-line"></div>
+
+          <!-- POI Markers -->
+          <div class="poi-marker-3d" id="poi1" data-poi="olympus" style="left: 20%; top: 30%">
+            <div class="poi-beacon"></div>
+            <div class="poi-dot-3d"></div>
+            <div class="poi-popup-3d glass-morph">
+              <div class="popup-arrow"></div>
+              <h4>Olympus Mons</h4>
+              <p>The tallest volcano in the solar system. 21.9 km high - nearly 3x the height of Mount Everest.</p>
+              <div class="poi-stat"><span>Height:</span><strong>21,900 m</strong></div>
+            </div>
+          </div>
+
+          <div class="poi-marker-3d" id="poi2" data-poi="valles" style="left: 55%; top: 50%">
+            <div class="poi-beacon"></div>
+            <div class="poi-dot-3d"></div>
+            <div class="poi-popup-3d glass-morph">
+              <div class="popup-arrow"></div>
+              <h4>Valles Marineris</h4>
+              <p>A vast canyon system stretching 4,000 km - it would span the entire United States.</p>
+              <div class="poi-stat"><span>Length:</span><strong>4,000 km</strong></div>
+            </div>
+          </div>
+
+          <div class="poi-marker-3d" id="poi3" data-poi="polar" style="left: 75%; top: 20%">
+            <div class="poi-beacon"></div>
+            <div class="poi-dot-3d"></div>
+            <div class="poi-popup-3d glass-morph">
+              <div class="popup-arrow"></div>
+              <h4>Polar Ice Caps</h4>
+              <p>Frozen CO₂ and water ice. A potential water source for future Mars colonies.</p>
+              <div class="poi-stat"><span>Temp:</span><strong>−143°C</strong></div>
+            </div>
+          </div>
+
+          <div class="poi-marker-3d" id="poi4" data-poi="jezero" style="left: 40%; top: 70%">
+            <div class="poi-beacon"></div>
+            <div class="poi-dot-3d"></div>
+            <div class="poi-popup-3d glass-morph">
+              <div class="popup-arrow"></div>
+              <h4>Jezero Crater</h4>
+              <p>Our landing site. An ancient lake bed - the best place to search for signs of past life.</p>
+              <div class="poi-stat"><span>Diameter:</span><strong>49 km</strong></div>
+            </div>
+          </div>
+
+          <!-- Rover -->
+          <div class="rover-3d" id="rover">
+            <svg viewBox="0 0 80 50" width="60" height="38">
+              <rect x="15" y="5" width="50" height="25" rx="5" fill="#c0c0c0" stroke="#999" stroke-width="1.5"/>
+              <rect x="30" y="0" width="20" height="10" rx="3" fill="#888"/>
+              <line x1="40" y1="0" x2="40" y2="-8" stroke="#999" stroke-width="1.5"/>
+              <circle cx="40" cy="-10" r="3" fill="#ff6b35"/>
+              <circle cx="12" cy="35" r="8" fill="#666" stroke="#555" stroke-width="2"/>
+              <circle cx="40" cy="37" r="6" fill="#666" stroke="#555" stroke-width="2"/>
+              <circle cx="68" cy="35" r="8" fill="#666" stroke="#555" stroke-width="2"/>
+              <rect x="20" y="10" width="12" height="8" rx="2" fill="#3498db" opacity="0.7"/>
+              <rect x="48" y="10" width="12" height="8" rx="2" fill="#3498db" opacity="0.7"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mission Control Toggle -->
+      <div class="mission-control">
+        <button class="mc-toggle glass-morph" id="mcToggle">
+          <span class="mc-icon">📡</span>
+          <span>Mission Control Panel</span>
+          <svg class="mc-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M6 9l6 6 6-6"/>
+          </svg>
+        </button>
+        <div class="mc-panel glass-morph" id="mcPanel">
+          <div class="mc-grid">
+            <div class="mc-item">
+              <span class="mc-label">Signal Delay</span>
+              <span class="mc-value">12.5 min</span>
+            </div>
+            <div class="mc-item">
+              <span class="mc-label">Oxygen Level</span>
+              <span class="mc-value">98.2%</span>
+              <div class="mc-bar"><div class="mc-bar-fill" style="width:98.2%"></div></div>
+            </div>
+            <div class="mc-item">
+              <span class="mc-label">Temperature</span>
+              <span class="mc-value">−63°C</span>
+            </div>
+            <div class="mc-item">
+              <span class="mc-label">Battery</span>
+              <span class="mc-value">87%</span>
+              <div class="mc-bar"><div class="mc-bar-fill" style="width:87%"></div></div>
+            </div>
+            <div class="mc-item">
+              <span class="mc-label">Sol (Mars Day)</span>
+              <span class="mc-value">Sol 1</span>
+            </div>
+            <div class="mc-item">
+              <span class="mc-label">Wind Speed</span>
+              <span class="mc-value">22 km/h</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================== -->
+  <!-- SECTION 6: CONCLUSION                -->
+  <!-- ==================================== -->
+  <section id="conclusion" class="section section-conclusion">
+    <div class="conclusion-stars"></div>
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-number">10</span>
+        <h2 class="section-title" data-split>Mission Complete</h2>
+        <div class="section-title-line"></div>
+        <p class="section-desc">One small step for a crew, one giant leap for humanity.</p>
+      </div>
+
+      <div class="mission-summary">
+        <div class="summary-counters">
+          <div class="counter-item-3d reveal-el">
+            <div class="counter-inner glass-morph">
+              <div class="counter-glow"></div>
+              <span class="counter-value" data-target="225">0</span>
+              <span class="counter-suffix">M km</span>
+              <span class="counter-label">Distance Traveled</span>
+            </div>
+          </div>
+          <div class="counter-item-3d reveal-el">
+            <div class="counter-inner glass-morph">
+              <div class="counter-glow"></div>
+              <span class="counter-value" data-target="210">0</span>
+              <span class="counter-suffix">days</span>
+              <span class="counter-label">Mission Duration</span>
+            </div>
+          </div>
+          <div class="counter-item-3d reveal-el">
+            <div class="counter-inner glass-morph">
+              <div class="counter-glow"></div>
+              <span class="counter-value" data-target="6">0</span>
+              <span class="counter-suffix">crew</span>
+              <span class="counter-label">Team Members</span>
+            </div>
+          </div>
+          <div class="counter-item-3d reveal-el">
+            <div class="counter-inner glass-morph">
+              <div class="counter-glow"></div>
+              <span class="counter-value" data-target="47">0</span>
+              <span class="counter-suffix">samples</span>
+              <span class="counter-label">Collected</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-timeline reveal-el">
+        <h3>Mission Timeline</h3>
+        <div class="mini-timeline-3d">
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Crew</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Training</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Launch</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Orbit</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Transit</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Landing</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed">
+            <div class="mini-dot-3d"></div>
+            <span>Steps</span>
+          </div>
+          <div class="mini-line-3d completed"></div>
+          <div class="mini-step completed active-step">
+            <div class="mini-dot-3d"></div>
+            <span>Explore</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="conclusion-cta reveal-el">
+        <p>The frontier is closer than you think. The next chapter of human exploration begins with you.</p>
+        <a href="#hero" class="cta-button-3d">
+          <span class="cta-bg"></span>
+          <span class="cta-text">Restart Mission</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 4v6h6M23 20v-6h-6"/>
+            <path d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/>
+          </svg>
+        </a>
+      </div>
+
+      <footer class="site-footer">
+        <p>Built for <strong>Frontend Odyssey 2026</strong> - Theme: Journey to Mars</p>
+        <p class="footer-credit">Crafted with passion by a space enthusiast 🚀</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
